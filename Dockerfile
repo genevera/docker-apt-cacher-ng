@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER sameer@damagehead.com
 
-ENV APT_CACHER_NG_VERSION=0.7.26 \
+ENV APT_CACHER_NG_VERSION=0.9.1 \
     APT_CACHER_NG_CACHE_DIR=/var/cache/apt-cacher-ng \
     APT_CACHER_NG_LOG_DIR=/var/log/apt-cacher-ng \
     APT_CACHER_NG_USER=apt-cacher-ng
