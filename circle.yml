@@ -16,4 +16,5 @@ test:
 general:
   branches:
     only: 
+      - master
       - stdout_logging
