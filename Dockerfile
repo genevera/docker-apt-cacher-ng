@@ -1,22 +1,22 @@
-FROM ubuntu:16.04
-MAINTAINER sameer@damagehead.com
+FROM ubuntu:xenial
+MAINTAINER Genevera <genevera.codes@gmail.com> (@genevera)
 
 ENV APT_CACHER_NG_VERSION=0.9.1 \
     APT_CACHER_NG_CACHE_DIR=/var/cache/apt-cacher-ng \
     APT_CACHER_NG_LOG_DIR=/var/log/apt-cacher-ng \
-    APT_CACHER_NG_USER=apt-cacher-ng
+    APT_CACHER_NG_USER=apt-cacher-ng \
+    DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     vim.tiny wget sudo net-tools ca-certificates unzip \
     apt-cacher-ng=${APT_CACHER_NG_VERSION}* \
-    && sed 's/# ForeGround: 0/ForeGround: 1/' -i /etc/apt-cacher-ng/acng.conf \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -fs /dev/stdout /var/log/apt-cacher-ng/apt-cacher.log \
+    && ln -fs /dev/stderr /var/log/apt-cacher-ng/apt-cacher.err
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
-
+ADD acng.conf /etc/apt-cacher-ng/acng.conf
 EXPOSE 3142/tcp
 VOLUME ["${APT_CACHER_NG_CACHE_DIR}"]
-ENTRYPOINT ["/sbin/entrypoint.sh"]
-CMD ["/usr/sbin/apt-cacher-ng"]
+
+CMD ["/usr/sbin/apt-cacher-ng", "-c", "/etc/apt-cacher-ng"]
