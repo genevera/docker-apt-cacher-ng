@@ -1,4 +1,4 @@
 all: build
 
 build:
-	@docker build --tag=sameersbn/apt-cacher-ng .
+	@docker build --tag=quay.io/genevera/apt-cacher-ng .
