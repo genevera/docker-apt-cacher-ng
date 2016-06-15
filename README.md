@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/quay.io/genevera/docker-apt-cacher-ng.svg?style=shield)](https://circleci.com/gh/quay.io/genevera/docker-apt-cacher-ng) [![Docker Repository on Quay.io](https://quay.io/repository/genevera/apt-cacher-ng/status "Docker Repository on Quay.io")](https://quay.io/repository/genevera/apt-cacher-ng)
+[![Circle CI](https://circleci.com/gh/genevera/docker-apt-cacher-ng.svg?style=shield)](https://circleci.com/gh/genevera/docker-apt-cacher-ng) [![Docker Repository on Quay.io](https://quay.io/repository/genevera/apt-cacher-ng/status "Docker Repository on Quay.io")](https://quay.io/repository/genevera/apt-cacher-ng)
 
 # quay.io/genevera/apt-cacher-ng:latest
 
@@ -47,7 +47,7 @@ If the above recommendations do not help then [report your issue](../../issues/n
 
 ## Installation
 
-Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/quay.io/genevera/apt-cacher-ng) and is the recommended method of installation.
+Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/genevera/apt-cacher-ng) and is the recommended method of installation.
 
 > **Note**: Builds are also available on [Quay.io](https://quay.io/repository/quay.io/genevera/apt-cacher-ng)
 
