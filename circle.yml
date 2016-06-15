@@ -15,4 +15,5 @@ test:
     - curl --retry 10 --retry-delay 5 -v -s -L -o /dev/null http://127.0.0.1:23142/apt-cacher
 general:
   branches:
-    only: stdout_logging
+    only: 
+      - stdout_logging
