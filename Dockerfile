@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER Genevera <genevera.codes@gmail.com> (@genevera)
 
-ENV APT_CACHER_NG_VERSION=0.9.1 \
+ENV APT_CACHER_NG_VERSION=0.9.3 \
     APT_CACHER_NG_CACHE_DIR=/var/cache/apt-cacher-ng \
     APT_CACHER_NG_LOG_DIR=/var/log/apt-cacher-ng \
     APT_CACHER_NG_USER=apt-cacher-ng \
@@ -10,12 +10,13 @@ ENV APT_CACHER_NG_VERSION=0.9.1 \
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     vim.tiny wget sudo net-tools ca-certificates unzip \
-    apt-cacher-ng=${APT_CACHER_NG_VERSION}* \
+    apt-cacher-ng \
     && rm -rf /var/lib/apt/lists/* \
     && ln -fs /dev/stdout /var/log/apt-cacher-ng/apt-cacher.log \
     && ln -fs /dev/stderr /var/log/apt-cacher-ng/apt-cacher.err
 
 ADD acng.conf /etc/apt-cacher-ng/acng.conf
+ADD backends_docker /etc/apt-cacher-ng/backends_docker
 EXPOSE 3142/tcp
 VOLUME ["${APT_CACHER_NG_CACHE_DIR}"]
 
