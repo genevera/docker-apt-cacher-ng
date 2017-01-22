@@ -1,5 +1,5 @@
-FROM ubuntu:xenial
-MAINTAINER Genevera <genevera.codes@gmail.com> (@genevera)
+FROM sameersbn/ubuntu:14.04.20170110
+MAINTAINER sameer@damagehead.com
 
 ENV APT_CACHER_NG_VERSION=0.9.3 \
     APT_CACHER_NG_CACHE_DIR=/var/cache/apt-cacher-ng \
@@ -8,12 +8,13 @@ ENV APT_CACHER_NG_VERSION=0.9.3 \
     DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    vim.tiny wget sudo net-tools ca-certificates unzip \
-    apt-cacher-ng \
-    && rm -rf /var/lib/apt/lists/* \
-    && ln -fs /dev/stdout /var/log/apt-cacher-ng/apt-cacher.log \
-    && ln -fs /dev/stderr /var/log/apt-cacher-ng/apt-cacher.err
+    DEBIAN_FRONTEND=noninteractive apt-get install -y apt-cacher-ng=${APT_CACHER_NG_VERSION}* \
+ && sed 's/# ForeGround: 0/ForeGround: 1/' -i /etc/apt-cacher-ng/acng.conf \
+ && sed 's/# PassThroughPattern:.*this would allow.*/PassThroughPattern: .* #/' -i /etc/apt-cacher-ng/acng.conf \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY entrypoint.sh /sbin/entrypoint.sh
+RUN chmod 755 /sbin/entrypoint.sh
 
 ADD acng.conf /etc/apt-cacher-ng/acng.conf
 ADD backends_docker /etc/apt-cacher-ng/backends_docker
