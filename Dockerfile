@@ -4,11 +4,12 @@ MAINTAINER Genevera <genevera.codes@gmail.com> (@genevera)
 ENV APT_CACHER_NG_CACHE_DIR=/var/cache/apt-cacher-ng \
     DEBIAN_FRONTEND=noninteractive \
     APT_CACHER_NG_URL=http://ftp.debian.org/debian/pool/main/a/apt-cacher-ng/apt-cacher-ng_3.1-1_amd64.deb \
-    LIBSSL_11_URL=http://mirrors.kernel.org/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu3_amd64.deb
+    LIBSSL_11_URL=http://mirrors.edge.kernel.org/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2_amd64.deb
 
 RUN apt-get update && \
+    apt-get upgrade --with-new-pkgs --yes \
     apt-get install -y --no-install-recommends \
-    curl libwrap0 \
+    curl libwrap0 libc6 \
     && curl -SsL "${LIBSSL_11_URL}" > /tmp/libssl.deb \
     && curl -SsL "${APT_CACHER_NG_URL}" > /tmp/acng.deb \
     && dpkg -i /tmp/libssl.deb \
